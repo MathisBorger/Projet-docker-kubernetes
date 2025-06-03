@@ -3,10 +3,16 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const result = await pool.query(
-            "SELECT * FROM tasks"
-        );
-        res.status(204).json(result.rows);
+        // const result = await pool.query(
+        //     "SELECT * FROM tasks"
+        // );
+        const mock = [
+            { id: 1, title: 'Tâche 1', description: 'Description de la tâche 1', date: '2023-10-01'},
+            { id: 2, title: 'Tâche 2', description: 'Description de la tâche 2', date: '2023-10-01' },
+            { id: 3, title: 'Tâche 3', description: 'Description de la tâche 3', date: '2023-10-01' },
+            { id: 4, title: 'Tâche 4', description: 'Description de la tâche 4', date: '2023-10-01' }, 
+        ];
+        res.status(204).json(mock);//result.rows);
         
     } catch (err) {
         console.error(err);
@@ -14,11 +20,11 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:search', (req, res) => (
-    res.status(200).json({
-        search: req.params.search
-    })
-))
+// router.get('/:search', (req, res) => (
+//     res.status(200).json({
+//         search: req.params.search
+//     })
+// ))
 
 router.post('/create', async (req, res) => {
     const {title, description, date} = req.body;
