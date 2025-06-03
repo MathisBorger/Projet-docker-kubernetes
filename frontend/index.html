@@ -1,1 +1,43 @@
-
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+<header>
+    <h1>ToDo List</h1>
+    <h2> From "To do" to "Done" in a blink of an eye</h2>
+    <p>By Mathis, Louan, Najma and Veronique - 2025 </p>
+</header>
+<div class="container">
+    <div class="add_bar">
+        <input class="input task" type="text" id="input" placeholder="Your task...">
+        <span onclick="newElement()" class="btn task">Add</span>
+    </div>
+    <ul></ul>
+</div>
+</body>
+</html>
+<template id="task-template">
+    <li class="task">
+        <label>
+            <input type="checkbox" class="hidden_real_check" />
+            <div class="todo_element">
+        <span class="customized_ckeck">
+          <span class="checkbox">
+            <span class='internal_one'></span>
+            <span class='internal_two'></span>
+          </span>
+        </span>
+                <span class="element_title">Something important to do</span>
+            </div>
+        </label>
+        <div class="close">
+            <label>
+                <input style="display: none" type="button"> &#10006 </label>
+        </div>
+    </li>
+</template>
