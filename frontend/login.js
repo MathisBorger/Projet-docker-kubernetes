@@ -1,12 +1,16 @@
 function login() {
-    const name = document.getElementById("username").value.trim();
-    const password = btoa(document.getElementById("password").value.trim());
+    const name = document.getElementById("username").value;
+    const password = btoa(document.getElementById("password").value);
 
+    console.log(name, password)
     fetch("/login?name=" + name + "&password=" + password)
-        .then((response) => response.json())
+        .then(response => {
+            return response.json();
+          })
         .then((data) => {
             console.log(data);
             if (data.id) {
+                window.location.href = "index.html?id=" + data.id;
             } else {
                 console.error("Utilisateur non trouvé");
             }
