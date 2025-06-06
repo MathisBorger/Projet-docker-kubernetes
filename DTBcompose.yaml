@@ -1,5 +1,5 @@
 services:
-  db:
+  db: # projet-docker-kubernetes-db-1
     image: postgres:latest
     restart: always
     ports:
@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
-  pgadmin:
+  pgadmin: # projet-docker-kubernetes-pgadmin-1
     image: dpage/pgadmin4:9.3
     restart: always
     ports:
@@ -16,12 +16,13 @@ services:
       PGADMIN_DEFAULT_EMAIL: louandeshayes@gmail.com
       PGADMIN_DEFAULT_PASSWORD: LouanPgAdmin
 
+
 # logins | MDP de la DTB :
 #    louandeshayes@gmail.com | LouanPgAdmin
-#    mathisborger24@gmail.com | mathis
-#    bodinv@3il.fr | veronique
-#    jabirn@3il.fr | jabirn
+#    no mathisborger24@gmail.com | mathis
+#    no bodinv@3il.fr | veronique
+#    no jabirn@3il.fr | jabirn
 
 # Build conteneur DTB : docker compose -f DTBcompose.yaml up
-# Save DTB : docker exec -t (id_du_conteneur_postgres) pg_dumpall -c -U postgres > dump_DTB.sql
-# Restore DTB : cat dump_DTB.sql | docker exec -i (id_du_conteneur_postgres) psql -U postgres
+# Save DTB : docker exec -t projet-docker-kubernetes-db-1 pg_dumpall -c -U postgres > dump_DTB.sql
+# Restore DTB : cat dump_DTB.sql | docker exec -i projet-docker-kubernetes-db-1 psql -U postgres
