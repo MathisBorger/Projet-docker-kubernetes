@@ -15,7 +15,7 @@
 <div class="container">
     <div class="add_bar">
         <input class="input task" type="text" id="input" placeholder="Your task...">
-        <span onclick="newElement()" class="btn task">Add</span>
+        <span onclick="createTask()" class="btn task">Add</span>
     </div>
     <ul></ul>
 </div>
@@ -26,18 +26,17 @@
         <label>
             <input type="checkbox" class="hidden_real_check" />
             <div class="todo_element">
-        <span class="customized_ckeck">
-          <span class="checkbox">
-            <span class='internal_one'></span>
-            <span class='internal_two'></span>
-          </span>
-        </span>
+                <span class="customized_ckeck">
+                    <span class="checkbox">
+                        <span class='internal_one'></span>
+                        <span class='internal_two'></span>
+                    </span>
+                </span>
                 <span class="element_title">Something important to do</span>
             </div>
         </label>
         <div class="close">
-            <label>
-                <input style="display: none" type="button"> &#10006 </label>
+            <span class="close-btn">&#10006;</span>
         </div>
     </li>
 </template>

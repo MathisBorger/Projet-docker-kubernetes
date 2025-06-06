@@ -1,12 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const items = document.querySelectorAll("li");
+    const url = new URL(window.location.href)
+    const id = url.searchParams.get('username')
 
-    items.forEach(item => {
-        const closeBtn = document.createElement("span");
-        closeBtn.className = "close";
-        closeBtn.textContent = "\u00D7";
-        item.appendChild(closeBtn);
-    });
+    /*fetch("usr/?username=" + id +"/tasks")
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            data.forEach((task)=>{
+                createTask(task)
+            })
+
+        })
+        .catch(console.error)
+
+    //fetch
+    //Foreach : createElement*/
 
     const closeButtons = document.getElementsByClassName("close");
 
@@ -26,12 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function newElement() {
+function createTask(description) {
     const ul = document.querySelector("ul");
-    const input = document.getElementById("input");
-    const text = input.value.trim();
 
-    input.value = "";
+    let text
+
+    if(task){
+        text = description
+    }else {
+        const input = document.getElementById("input");
+        text = input.value.trim();
+        input.value = "";
+    }
 
     if (!text) return;
 
@@ -49,3 +63,4 @@ function newElement() {
 
     ul.appendChild(clone);
 }
+
