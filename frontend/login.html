@@ -4,19 +4,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="login.js"></script>
 </head>
 <body>
 <div class="login_container">
     <h1>LOGIN</h1>
     <div class="login_content">
         <label> Username</label>
-        <input class="input" type="text" placeholder="Username...">
+        <input id="username" class="input" type="text" placeholder="Username...">
     </div>
     <div class="login_content">
         <label> Password</label>
-        <input class="input" type="text" placeholder="Password...">
+        <input id="password" class="input" type="text" placeholder="Password...">
     </div>
-    <span onclick="" class="btn login">Login</span>
+    <span onclick="login()" class="btn login">Login</span>
 </div>
 </body>
 </html>

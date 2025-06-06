@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
             { id: 4, name: 'Bob Brown', password: 'password4' },
         ];
         //res.status(204).json(mock); //result.rows);
-        res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+        res.sendFile(path.join(__dirname, '../frontend', 'login.html'));
         
     } catch (err) {
         console.error(err);
