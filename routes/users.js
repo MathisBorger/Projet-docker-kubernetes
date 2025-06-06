@@ -13,7 +13,12 @@ router.get('/', async (req, res) => {
             { id: 3, name: 'Alice Johnson', password: 'password3' },
             { id: 4, name: 'Bob Brown', password: 'password4' },
         ];
+<<<<<<< HEAD
         res.status(204).json(mock); //result.rows);
+=======
+        //res.status(204).json(mock); //result.rows);
+        res.sendFile(path.join(__dirname, '../frontend', 'login.html'));
+>>>>>>> b4660aec8d4f6a9aedc466d0c189a29980d89a25
         
     } catch (err) {
         console.error(err);
