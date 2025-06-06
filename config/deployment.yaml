@@ -1,6 +1,6 @@
 # Déploiement de la Base de données MySQL
 apiVersion: v1
-kind: Deployment
+kind: Statefulset
 metadata:
   name: mysql
 spec:
