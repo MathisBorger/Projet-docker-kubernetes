@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 
 router.get('/', async (req, res) => {
     try {
@@ -14,8 +13,7 @@ router.get('/', async (req, res) => {
             { id: 3, name: 'Alice Johnson', password: 'password3' },
             { id: 4, name: 'Bob Brown', password: 'password4' },
         ];
-        //res.status(204).json(mock); //result.rows);
-        res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+        res.status(204).json(mock); //result.rows);
         
     } catch (err) {
         console.error(err);

@@ -1,8 +1,12 @@
 const express = require('express');
+const path = require('path');
 const port = process.env.PORT || 5000;
 
 const app = express();
 const router = express.Router();
+
+// Sert les fichiers du dossier frontend
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 app.get('/', (req, res) => (
     res.status(200).json({
