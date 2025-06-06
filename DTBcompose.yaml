@@ -15,8 +15,23 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: louandeshayes@gmail.com
       PGADMIN_DEFAULT_PASSWORD: LouanPgAdmin
-
-
+  web:
+    image: node:20
+    restart: always
+    working_dir: /app
+    ports:
+      - "8080:5000"
+    command: sh -c "npm install && npm start"
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/postgres
+      PGADMIN_URL: http://pgadmin:8888
+      NODE_ENV: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+      - pgadmin
 # logins | MDP de la DTB :
 #    louandeshayes@gmail.com | LouanPgAdmin
 #    no mathisborger24@gmail.com | mathis
