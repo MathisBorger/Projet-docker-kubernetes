@@ -217,13 +217,15 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.tasks (
     id integer NOT NULL,
+    user_id integer NOT NULL ,
     title character varying(100) NOT NULL,
     description character varying(500),
     date date,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp without time zone,
     deleted_at timestamp without time zone,
-    status character varying(20) DEFAULT 'New'::character varying NOT NULL
+    status character varying(20) DEFAULT 'New'::character varying NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES public.users(id)
 );
 
 
@@ -308,18 +310,36 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: tasks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.tasks (id, title, description, date, created_at, updated_at, deleted_at, status) FROM stdin;
-1	Updated successf	This is a sample task.	2025-06-03	2025-06-03 11:53:02.41108	2025-06-03 13:58:06.872502	\N	New
-\.
+INSERT INTO public.tasks (id, user_id, title, description, date, created_at, updated_at, deleted_at, status)
+VALUES (
+    1,
+    1,
+    'Updated successf',
+    'This is a sample task.',
+    '2025-06-03',
+    '2025-06-03 11:53:02.41108',
+    '2025-06-03 13:58:06.872502',
+    NULL,
+    'New'
+);
+
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
---
+-- bW90ZGVwYXNzZTEyMw== => motdepasse123
 
-COPY public.users (id, name, password, email, created_at, updated_at, deleted_at) FROM stdin;
-1	Alice du	motdepasse123	alice.dupont@example.com	2025-06-03 09:52:18.776532	2025-06-03 12:04:56.787669	\N
-\.
+INSERT INTO public.users (id, name, password, email, created_at, updated_at, deleted_at)
+VALUES (
+    1,
+    'Alice du',
+    'bW90ZGVwYXNzZTEyMw==',
+    'alice.dupont@example.com',
+    '2025-06-03 09:52:18.776532',
+    '2025-06-03 12:04:56.787669',
+    NULL
+);
+
 
 
 --

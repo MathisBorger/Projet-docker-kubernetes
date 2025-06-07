@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const pool = require('./backend/db/database');
 const port = process.env.PORT || 5000;
 
 const app = express();
@@ -17,21 +18,14 @@ app.get('/', (req, res) => (
 router.get('/login', async (req, res) => {
     try {
         const { name, password } = req.query;
-
-        // const result = await pool.query(
-        //     "SELECT * FROM users WHERE name = $1 AND password = $2",
-        //     [name, password]
-        // );
-        const mock = [
-            { id: 1, name: 'John Doe', password: 'password1' },
-            { id: 2, name: 'Jane Smith', password: 'password2' },
-            { id: 3, name: 'Alice Johnson', password: 'password3' },
-            { id: 4, name: 'Bob Brown', password: 'password4' },
-        ];
-
-        const user = mock.find(u => u.name.toLowerCase() == name && u.password == atob(password));
         
-        console.log(user ? user.id : null)
+        const result = await pool.query(
+            "SELECT * FROM users WHERE name = $1 AND password = $2 LIMIT 1",
+            [name, password]
+        );
+
+        const user = result.rows[0];
+        
         res.json({ id: user ? user.id : null });
     } catch (err) {
         console.error(err);
