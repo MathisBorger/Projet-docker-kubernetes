@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: thisma24/todo-list:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_HOST
+              value: db
+            - name: DB_NAME
+              value: postgres
+            - name: DB_PASSWORD
+              value: password
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: postgres
+            - name: NODE_ENV
+              value: development
+            - name: PGADMIN_URL
+              value: http://pgadmin:8888
+
+          workingDir: /app
