@@ -5,13 +5,13 @@ const fs = require('fs');
 const pool = require('../backend/db/database');
 
 router.get('/', async (req, res) => {
-    const filePath = path.join('..', 'frontend', 'login.html');
-if (fs.existsSync(filePath)) {
-  res.sendFile(filePath);
-} else {
-  console.error('Fichier login.html introuvable :', filePath);
-  res.status(404).send('Fichier introuvable', filePath);
-}
+    const filePath = path.join(__dirname, '..', 'frontend', 'login.html');
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        console.error('Fichier login.html introuvable :', filePath);
+        res.status(404).send('Fichier introuvable : ', filePath);
+    }
     // try {
     //     res.sendFile(path.join(__dirname, 'frontend', 'login.html'));
     // } catch (err) {

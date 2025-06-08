@@ -1,24 +1,28 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: C:\kompose\kompose.exe convert -f DTBcompose.yaml
-    kompose.version: 1.36.0 (ae2a39403)
-  labels:
-    io.kompose.service: db
   name: db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: db
+      app: db
   template:
     metadata:
-      annotations:
-        kompose.cmd: C:\kompose\kompose.exe convert -f DTBcompose.yaml
-        kompose.version: 1.36.0 (ae2a39403)
       labels:
-        io.kompose.service: db
+        app: db
     spec:
       containers:
         - env:
@@ -30,5 +34,11 @@ spec:
           name: db
           ports:
             - containerPort: 5432
-              protocol: TCP
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
       restartPolicy: Always
