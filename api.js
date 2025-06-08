@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const pool = require('./backend/db/database');
+const pool = require('./app/backend/db/database');
 const port = process.env.PORT || 5000;
 
 const app = express();
@@ -35,7 +35,7 @@ router.get('/login', async (req, res) => {
 
 app.use('/', router)
 
-app.use('/users', require('./routes/routes'))
+app.use('/users', require('./app/routes/routes'))
 
 app.listen(port, (err) => {
     console.log('Serveur est en ligne !');
