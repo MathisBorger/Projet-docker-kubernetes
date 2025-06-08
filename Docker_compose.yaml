@@ -43,6 +43,6 @@ services:
 #    no bodinv@3il.fr | veronique
 #    no jabirn@3il.fr | jabirn
 
-# Build conteneur DTB : docker compose -f DTBcompose.yaml up
-# Save DTB : docker exec -t projet-docker-kubernetes-db-1 pg_dumpall -c -U postgres > dump_DTB.sql
-# Restore DTB : cat dump_DTB.sql | docker exec -i projet-docker-kubernetes-db-1 psql -U postgres
+# Build conteneur DTB : docker compose -f Docker_compose.yaml up -d
+# Save DTB : docker exec -t projet-docker-kubernetes-db-1 pg_dumpall -c -U postgres > backend/db/dump_DTB.sql
+# Restore DTB : cat backend/db/dump_DTB.sql | docker exec -i projet-docker-kubernetes-db-1 psql -U postgres
