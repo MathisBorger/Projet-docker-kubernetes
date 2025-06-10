@@ -1,19 +1,22 @@
 const express = require('express');
 const path = require('path');
-const pool = require('./backend/db/database');
+const pool = require('./app/backend/db/database');
+const fs = require('fs');
 const port = process.env.PORT || 5000;
 
 const app = express();
 const router = express.Router();
 
-// Sert les fichiers du dossier frontend
-app.use(express.static(path.join(__dirname, 'frontend')));
 
-app.get('/', (req, res) => (
-    res.status(200).json({
-        message: 'Toutes les tâches'
-    })
-))
+router.get('/', (req, res) => {
+    const filePath = path.join(__dirname, 'app', 'frontend', 'login.html');
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        console.error('Fichier login.html introuvable :', filePath);
+        res.status(404).send('Fichier introuvable : ', filePath);
+    }
+})
 
 router.get('/login', async (req, res) => {
     try {
@@ -35,7 +38,10 @@ router.get('/login', async (req, res) => {
 
 app.use('/', router)
 
-app.use('/users', require('./routes/routes'))
+app.use('/users', require('./app/routes/routes'))
+
+// Sert les fichiers du dossier frontend
+app.use(express.static(path.join(__dirname, 'app/frontend')));
 
 app.listen(port, (err) => {
     console.log('Serveur est en ligne !');

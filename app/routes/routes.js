@@ -1,16 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const fs = require('fs').promises;
+const fs = require('fs');
 const pool = require('../backend/db/database');
 
 router.get('/', async (req, res) => {
-    try {
-        res.sendFile(path.join(__dirname, '../frontend', 'login.html'));
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Impossible de récupérer les utilisateur !');
+    const filePath = path.join(__dirname, '..', 'frontend', 'login.html');
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        console.error('Fichier login.html introuvable :', filePath);
+        res.status(404).send('Fichier introuvable : ', filePath);
     }
+    // try {
+    //     res.sendFile(path.join(__dirname, 'frontend', 'login.html'));
+    // } catch (err) {
+    //     console.error(err);
+    //     res.status(500).send('Impossible de récupérer les utilisateur !');
+    // }
 })
 
 router.get('/:id/tasks', async (req, res) => {
