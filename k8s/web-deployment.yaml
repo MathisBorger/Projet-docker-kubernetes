@@ -1,3 +1,23 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: web-secret
+type: Opaque
+data:
+  DB_PASSWORD: cGFzc3dvcmQ= # password
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+data:
+  DB_HOST: db
+  DB_NAME: postgres
+  DB_PORT: "5432"
+  DB_USER: postgres
+  NODE_ENV: development
+  PGADMIN_URL: http://pgadmin:8888
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,20 +37,40 @@ spec:
           image: thisma24/todo-list:latest
           ports:
             - containerPort: 5000
-          env:
-            - name: DB_HOST
-              value: db
-            - name: DB_NAME
-              value: postgres
-            - name: DB_PASSWORD
-              value: password
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              value: postgres
-            - name: NODE_ENV
-              value: development
-            - name: PGADMIN_URL
-              value: http://pgadmin:8888
-
           workingDir: /app
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: web-secret
+                  key: DB_PASSWORD
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: web-config
+                  key: DB_HOST
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: web-config
+                  key: DB_NAME
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: web-config
+                  key: DB_PORT
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: web-config
+                  key: DB_USER
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: web-config
+                  key: NODE_ENV
+            - name: PGADMIN_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: web-config
+                  key: PGADMIN_URL
