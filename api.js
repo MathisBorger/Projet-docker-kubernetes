@@ -1,37 +1,34 @@
 const express = require('express');
 const path = require('path');
+const pool = require('./app/backend/db/database');
+const fs = require('fs');
 const port = process.env.PORT || 5000;
 
 const app = express();
 const router = express.Router();
 
-// Sert les fichiers du dossier frontend
-app.use(express.static(path.join(__dirname, 'frontend')));
 
-app.get('/', (req, res) => (
-    res.status(200).json({
-        message: 'Toutes les tâches'
-    })
-))
+router.get('/', (req, res) => {
+    const filePath = path.join(__dirname, 'app', 'frontend', 'login.html');
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        console.error('Fichier login.html introuvable :', filePath);
+        res.status(404).send('Fichier introuvable : ', filePath);
+    }
+})
 
 router.get('/login', async (req, res) => {
     try {
         const { name, password } = req.query;
-
-        // const result = await pool.query(
-        //     "SELECT * FROM users WHERE name = $1 AND password = $2",
-        //     [name, password]
-        // );
-        const mock = [
-            { id: 1, name: 'John Doe', password: 'password1' },
-            { id: 2, name: 'Jane Smith', password: 'password2' },
-            { id: 3, name: 'Alice Johnson', password: 'password3' },
-            { id: 4, name: 'Bob Brown', password: 'password4' },
-        ];
-
-        const user = mock.find(u => u.name.toLowerCase() == name && u.password == atob(password));
         
-        console.log(user ? user.id : null)
+        const result = await pool.query(
+            "SELECT * FROM users WHERE name = $1 AND password = $2 LIMIT 1",
+            [name, password]
+        );
+
+        const user = result.rows[0];
+        
         res.json({ id: user ? user.id : null });
     } catch (err) {
         console.error(err);
@@ -41,7 +38,10 @@ router.get('/login', async (req, res) => {
 
 app.use('/', router)
 
-app.use('/users', require('./routes/routes'))
+app.use('/users', require('./app/routes/routes'))
+
+// Sert les fichiers du dossier frontend
+app.use(express.static(path.join(__dirname, 'app/frontend')));
 
 app.listen(port, (err) => {
     console.log('Serveur est en ligne !');

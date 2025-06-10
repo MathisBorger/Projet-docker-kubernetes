@@ -1,0 +1,33 @@
+[
+    {
+        "id": 5,
+        "user_id": 1,
+        "title": "Nouvelle tâche 1749218272440",
+        "description": "hey",
+        "status": "completed",
+        "date": "2025-06-06"
+    },
+    {
+        "id": 6,
+        "user_id": 1,
+        "title": "Nouvelle tâche 1749218276362",
+        "description": "todo",
+        "status": "completed",
+        "date": "2025-06-06"
+    },
+    {
+        "id": 7,
+        "user_id": 1,
+        "title": "Nouvelle tâche 1749218279923",
+        "description": "complete",
+        "status": "to complete",
+        "date": "2025-06-06"
+    },
+    {
+        "id": 8,
+        "user_id": 2,
+        "title": "Nouvelle tâche 1749219750997",
+        "description": "sfs",
+        "date": "2025-06-06"
+    }
+]
